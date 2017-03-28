@@ -32,12 +32,6 @@ Maintainer: Miguel Luis and Gregory Cristian
 #include "uart.h"
 #include "radio.h"
 #include "sx1276/sx1276.h"
-#include "mag3110.h"
-#include "mma8451.h"
-#include "mpl3115.h"
-#include "sx9500.h"
-#include "gps.h"
-#include "gps-board.h"
 #include "rtc-board.h"
 #include "sx1276-board.h"
 #include "uart-board.h"
@@ -45,11 +39,6 @@ Maintainer: Miguel Luis and Gregory Cristian
 #if defined( USE_USB_CDC )
 #include "uart-usb-board.h"
 #endif
-
-/*!
- * Define indicating if an external IO expander is to be used
- */
-#define BOARD_IOE_EXT
 
 /*!
  * Generic definition

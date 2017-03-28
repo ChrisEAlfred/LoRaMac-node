@@ -244,11 +244,9 @@ static void PrepareTxFrame( uint8_t port )
             uint16_t altitudeGps = 0xFFFF;
             uint8_t batteryLevel = 0;
 
-            temperature = ( int16_t )( MPL3115ReadTemperature( ) * 100 );       // in °C * 100
+            temperature = ( int16_t )(25 * 100 );       // in °C * 100
 
             batteryLevel = BoardGetBatteryLevel( );                             // 1 (very low) to 254 (fully charged)
-            GpsGetLatestGpsPositionBinary( &latitude, &longitude );
-            altitudeGps = GpsGetLatestGpsAltitude( );                           // in m
 
             AppData[0] = AppLedStateOn;
             AppData[1] = temperature;                                           // Signed degrees celsius in half degree units. So,  +/-63 C
@@ -528,7 +526,6 @@ static void McpsIndication( McpsIndication_t *mcpsIndication )
 #if defined( REGION_EU868 )
                     LoRaMacTestSetDutyCycleOn( false );
 #endif
-                    GpsStop( );
                 }
             }
             else
@@ -550,7 +547,6 @@ static void McpsIndication( McpsIndication_t *mcpsIndication )
 #if defined( REGION_EU868 )
                     LoRaMacTestSetDutyCycleOn( LORAWAN_DUTYCYCLE_ON );
 #endif
-                    GpsStart( );
                     break;
                 case 1: // (iii, iv)
                     AppDataSize = 2;
@@ -597,7 +593,6 @@ static void McpsIndication( McpsIndication_t *mcpsIndication )
 #if defined( REGION_EU868 )
                         LoRaMacTestSetDutyCycleOn( LORAWAN_DUTYCYCLE_ON );
 #endif
-                        GpsStart( );
 
                         mlmeReq.Type = MLME_JOIN;
 
@@ -867,12 +862,6 @@ int main( void )
                 DeviceState = DEVICE_STATE_INIT;
                 break;
             }
-        }
-        if( GpsGetPpsDetectedState( ) == true )
-        {
-            // Switch LED 4 ON
-            GpioWrite( &Led4, 0 );
-            TimerStart( &Led4Timer );
         }
     }
 }
