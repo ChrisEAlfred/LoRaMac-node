@@ -20,10 +20,6 @@ Maintainer: Miguel Luis and Gregory Cristian
 
 #include "gpio-board.h"
 
-#if defined( BOARD_IOE_EXT )
-#include "gpio-ioe.h"
-#endif
-
 void GpioInit( Gpio_t *obj, PinNames pin, PinModes mode,  PinConfigs config, PinTypes type, uint32_t value )
 {
     GpioMcuInit( obj, pin, mode, config, type, value );
