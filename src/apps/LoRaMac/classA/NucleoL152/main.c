@@ -155,16 +155,6 @@ static bool AppLedStateOn = false;
 static TimerEvent_t Led1Timer;
 
 /*!
- * Timer to handle the state of LED2
- */
-static TimerEvent_t Led2Timer;
-
-/*!
- * Timer to handle the state of LED4
- */
-static TimerEvent_t Led4Timer;
-
-/*!
  * Indicates if a new packet can be sent
  */
 static bool NextTx = true;
@@ -240,7 +230,7 @@ static void PrepareTxFrame( uint8_t port )
             AppData[15] = altitudeGps & 0xFF;
 #elif defined( REGION_US915 ) || defined( REGION_US915_HYBRID )
             int16_t temperature = 0;
-            int32_t latitude, longitude = 0;
+            int32_t latitude = 0, longitude = 0;
             uint16_t altitudeGps = 0xFFFF;
             uint8_t batteryLevel = 0;
 
@@ -372,27 +362,7 @@ static void OnLed1TimerEvent( void )
 {
     TimerStop( &Led1Timer );
     // Switch LED 1 OFF
-    GpioWrite( &Led1, 1 );
-}
-
-/*!
- * \brief Function executed on Led 2 Timeout event
- */
-static void OnLed2TimerEvent( void )
-{
-    TimerStop( &Led2Timer );
-    // Switch LED 2 OFF
-    GpioWrite( &Led2, 1 );
-}
-
-/*!
- * \brief Function executed on Led 4 Timeout event
- */
-static void OnLed4TimerEvent( void )
-{
-    TimerStop( &Led4Timer );
-    // Switch LED 4 OFF
-    GpioWrite( &Led4, 1 );
+    GpioWrite( &Led1, 0 );
 }
 
 /*!
@@ -430,7 +400,7 @@ static void McpsConfirm( McpsConfirm_t *mcpsConfirm )
         }
 
         // Switch LED 1 ON
-        GpioWrite( &Led1, 0 );
+        GpioWrite( &Led1, 1 );
         TimerStart( &Led1Timer );
     }
     NextTx = true;
@@ -495,7 +465,6 @@ static void McpsIndication( McpsIndication_t *mcpsIndication )
             if( mcpsIndication->BufferSize == 1 )
             {
                 AppLedStateOn = mcpsIndication->Buffer[0] & 0x01;
-                GpioWrite( &Led3, ( ( AppLedStateOn & 0x01 ) != 0 ) ? 0 : 1 );
             }
             break;
         case 224:
@@ -627,9 +596,9 @@ static void McpsIndication( McpsIndication_t *mcpsIndication )
         }
     }
 
-    // Switch LED 2 ON for each received downlink
-    GpioWrite( &Led2, 0 );
-    TimerStart( &Led2Timer );
+    // Switch LED 1 ON for each received downlink
+    GpioWrite( &Led1, 1 );
+    TimerStart( &Led1Timer );
 }
 
 /*!
@@ -727,12 +696,6 @@ int main( void )
                 TimerInit( &Led1Timer, OnLed1TimerEvent );
                 TimerSetValue( &Led1Timer, 25 );
 
-                TimerInit( &Led2Timer, OnLed2TimerEvent );
-                TimerSetValue( &Led2Timer, 25 );
-
-                TimerInit( &Led4Timer, OnLed4TimerEvent );
-                TimerSetValue( &Led4Timer, 25 );
-
                 mibReq.Type = MIB_ADR;
                 mibReq.Param.AdrEnable = LORAWAN_ADR_ON;
                 LoRaMacMibSetRequestConfirm( &mibReq );
@@ -828,6 +791,9 @@ int main( void )
                     PrepareTxFrame( AppPort );
 
                     NextTx = SendFrame( );
+
+                    GpioWrite( &Led1, 1 );
+                    TimerStart( &Led1Timer );
                 }
                 if( ComplianceTest.Running == true )
                 {

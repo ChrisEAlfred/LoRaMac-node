@@ -649,7 +649,7 @@
     <Device manufacturerId="9" manufacturerName="ST" chipId="826" chipName="STM32L151CBU6" boardId="" boardName="" boardUrl="" coreId="" coreName=""/>
     <BuildOption>
       <Compile>
-        <Option name="OptimizationLevel" value="4"/>
+        <Option name="OptimizationLevel" value="6"/>
         <Option name="UseFPU" value="0"/>
         <Option name="UserEditCompiler" value="-std=c99; -flto"/>
         <Option name="SupportCPlusplus" value="0"/>
@@ -734,21 +734,20 @@
     <File name="boards" path="" type="2"/>
     <File name="boards/NucleoL152" path="" type="2"/>
     <File name="boards/NucleoL152/STM32L1xx_HAL_Driver/stm32l1xx_hal_adc.c" path="../../../../src/boards/mcu/stm32/STM32L1xx_HAL_Driver/Src/stm32l1xx_hal_adc.c" type="1"/>
-    <File name="boards/NucleoL152/i2c-board.c" path="../../../../src/boards/NucleoL152/i2c-board.c" type="1"/>
     <File name="boards/NucleoL152/STM32L1xx_HAL_Driver/stm32l1xx_hal_uart.c" path="../../../../src/boards/mcu/stm32/STM32L1xx_HAL_Driver/Src/stm32l1xx_hal_uart.c" type="1"/>
-    <File name="boards/mcu/stm32" path="" type="2"/>
-    <File name="radio" path="" type="2"/>
     <File name="boards/mcu/stm32/sysIrqHandlers.c" path="../../../../src/boards/mcu/stm32/sysIrqHandlers.c" type="1"/>
+    <File name="radio" path="" type="2"/>
+    <File name="boards/mcu/stm32" path="" type="2"/>
     <File name="mac/Region/RegionUS915.c" path="../../../../src/mac/region/RegionUS915.c" type="1"/>
     <File name="boards/NucleoL152/STM32L1xx_HAL_Driver/stm32l1xx_hal_rtc.c" path="../../../../src/boards/mcu/stm32/STM32L1xx_HAL_Driver/Src/stm32l1xx_hal_rtc.c" type="1"/>
     <File name="mac/Region/RegionAU915.h" path="../../../../src/mac/region/RegionAU915.h" type="1"/>
     <File name="boards/NucleoL152/STM32L1xx_HAL_Driver/stm32l1xx_hal_rcc.c" path="../../../../src/boards/mcu/stm32/STM32L1xx_HAL_Driver/Src/stm32l1xx_hal_rcc.c" type="1"/>
-    <File name="mac/LoRaMac.c" path="../../../../src/mac/LoRaMac.c" type="1"/>
     <File name="boards/NucleoL152/STM32L1xx_HAL_Driver/stm32l1xx_hal_dma.c" path="../../../../src/boards/mcu/stm32/STM32L1xx_HAL_Driver/Src/stm32l1xx_hal_dma.c" type="1"/>
+    <File name="mac/LoRaMac.c" path="../../../../src/mac/LoRaMac.c" type="1"/>
     <File name="system/fifo.c" path="../../../../src/system/fifo.c" type="1"/>
     <File name="system" path="" type="2"/>
-    <File name="mac/Region/RegionCN779.h" path="../../../../src/mac/region/RegionCN779.h" type="1"/>
     <File name="mac/Region/RegionEU868.h" path="../../../../src/mac/region/RegionEU868.h" type="1"/>
+    <File name="mac/Region/RegionCN779.h" path="../../../../src/mac/region/RegionCN779.h" type="1"/>
     <File name="boards/NucleoL152/STM32L1xx_HAL_Driver/stm32l1xx_hal_adc_ex.c" path="../../../../src/boards/mcu/stm32/STM32L1xx_HAL_Driver/Src/stm32l1xx_hal_adc_ex.c" type="1"/>
     <File name="mac/Region" path="" type="2"/>
     <File name="system/timer.c" path="../../../../src/system/timer.c" type="1"/>
@@ -758,55 +757,55 @@
     <File name="boards/mcu/stm32/utilities.c" path="../../../../src/boards/mcu/stm32/utilities.c" type="1"/>
     <File name="boards/NucleoL152/cmsis/system_stm32l1xx.c" path="../../../../src/boards/NucleoL152/cmsis/system_stm32l1xx.c" type="1"/>
     <File name="mac/Region/RegionIN865.h" path="../../../../src/mac/region/RegionIN865.h" type="1"/>
-    <File name="mac/Region/RegionCommon.c" path="../../../../src/mac/region/RegionCommon.c" type="1"/>
     <File name="apps" path="" type="2"/>
-    <File name="boards/NucleoL152/STM32L1xx_HAL_Driver/stm32l1xx_hal_i2c.c" path="../../../../src/boards/mcu/stm32/STM32L1xx_HAL_Driver/Src/stm32l1xx_hal_i2c.c" type="1"/>
+    <File name="mac/Region/RegionCommon.c" path="../../../../src/mac/region/RegionCommon.c" type="1"/>
     <File name="apps/main.c" path="../../../../src/apps/LoRaMac/classA/NucleoL152/main.c" type="1"/>
+    <File name="boards/NucleoL152/STM32L1xx_HAL_Driver/stm32l1xx_hal_i2c.c" path="../../../../src/boards/mcu/stm32/STM32L1xx_HAL_Driver/Src/stm32l1xx_hal_i2c.c" type="1"/>
     <File name="mac/Region/RegionCN470.h" path="../../../../src/mac/region/RegionCN470.h" type="1"/>
     <File name="mac/Region/RegionUS915.h" path="../../../../src/mac/region/RegionUS915.h" type="1"/>
     <File name="mac/Region/RegionAU915.c" path="../../../../src/mac/region/RegionAU915.c" type="1"/>
     <File name="boards/NucleoL152/cmsis/startup_stm32l151xb.s" path="../../../../src/boards/NucleoL152/cmsis/arm-gcc/startup_stm32l151xb.s" type="1"/>
-    <File name="boards/NucleoL152/rtc-board.c" path="../../../../src/boards/NucleoL152/rtc-board.c" type="1"/>
     <File name="system/crypto/cmac.c" path="../../../../src/system/crypto/cmac.c" type="1"/>
+    <File name="boards/NucleoL152/rtc-board.c" path="../../../../src/boards/NucleoL152/rtc-board.c" type="1"/>
     <File name="system/crypto/aes.c" path="../../../../src/system/crypto/aes.c" type="1"/>
-    <File name="mac/Region/RegionCommon.h" path="../../../../src/mac/region/RegionCommon.h" type="1"/>
     <File name="boards/NucleoL152/STM32L1xx_HAL_Driver/stm32l1xx_hal_gpio.c" path="../../../../src/boards/mcu/stm32/STM32L1xx_HAL_Driver/Src/stm32l1xx_hal_gpio.c" type="1"/>
+    <File name="mac/Region/RegionCommon.h" path="../../../../src/mac/region/RegionCommon.h" type="1"/>
     <File name="boards/NucleoL152/sx1276-board.c" path="../../../../src/boards/NucleoL152/sx1276-board.c" type="1"/>
-    <File name="mac/Region/Region.c" path="../../../../src/mac/region/Region.c" type="1"/>
     <File name="mac/Region/RegionAS923.c" path="../../../../src/mac/region/RegionAS923.c" type="1"/>
+    <File name="mac/Region/Region.c" path="../../../../src/mac/region/Region.c" type="1"/>
     <File name="boards/NucleoL152/STM32L1xx_HAL_Driver/stm32l1xx_hal_pwr.c" path="../../../../src/boards/mcu/stm32/STM32L1xx_HAL_Driver/Src/stm32l1xx_hal_pwr.c" type="1"/>
     <File name="boards/NucleoL152/STM32L1xx_HAL_Driver/stm32l1xx_hal.c" path="../../../../src/boards/mcu/stm32/STM32L1xx_HAL_Driver/Src/stm32l1xx_hal.c" type="1"/>
     <File name="mac/LoRaMacCrypto.c" path="../../../../src/mac/LoRaMacCrypto.c" type="1"/>
+    <File name="boards/NucleoL152/cmsis/stm32l151xb_flash.ld" path="../../../../src/boards/NucleoL152/cmsis/arm-gcc/stm32l151xb_flash.ld" type="1"/>
     <File name="boards/NucleoL152/adc-board.c" path="../../../../src/boards/NucleoL152/adc-board.c" type="1"/>
-    <File name="system/delay.c" path="../../../../src/system/delay.c" type="1"/>
     <File name="boards/NucleoL152/gpio-board.c" path="../../../../src/boards/NucleoL152/gpio-board.c" type="1"/>
+    <File name="system/delay.c" path="../../../../src/system/delay.c" type="1"/>
     <File name="mac/Region/RegionKR920.h" path="../../../../src/mac/region/RegionKR920.h" type="1"/>
-    <File name="boards/NucleoL152/STM32L1xx_HAL_Driver/stm32l1xx_hal_cortex.c" path="../../../../src/boards/mcu/stm32/STM32L1xx_HAL_Driver/Src/stm32l1xx_hal_cortex.c" type="1"/>
     <File name="mac/Region/RegionUS915-Hybrid.h" path="../../../../src/mac/region/RegionUS915-Hybrid.h" type="1"/>
+    <File name="boards/NucleoL152/STM32L1xx_HAL_Driver/stm32l1xx_hal_cortex.c" path="../../../../src/boards/mcu/stm32/STM32L1xx_HAL_Driver/Src/stm32l1xx_hal_cortex.c" type="1"/>
     <File name="boards/NucleoL152/STM32L1xx_HAL_Driver/stm32l1xx_hal_spi_ex.c" path="../../../../src/boards/mcu/stm32/STM32L1xx_HAL_Driver/Src/stm32l1xx_hal_spi_ex.c" type="1"/>
     <File name="mac" path="" type="2"/>
     <File name="boards/NucleoL152/STM32L1xx_HAL_Driver" path="" type="2"/>
     <File name="boards/NucleoL152/STM32L1xx_HAL_Driver/stm32l1xx_hal_rtc_ex.c" path="../../../../src/boards/mcu/stm32/STM32L1xx_HAL_Driver/Src/stm32l1xx_hal_rtc_ex.c" type="1"/>
-    <File name="boards/NucleoL152/board.c" path="../../../../src/boards/NucleoL152/board.c" type="1"/>
     <File name="boards/mcu" path="" type="2"/>
-    <File name="mac/Region/RegionKR920.c" path="../../../../src/mac/region/RegionKR920.c" type="1"/>
+    <File name="boards/NucleoL152/board.c" path="../../../../src/boards/NucleoL152/board.c" type="1"/>
     <File name="mac/Region/RegionCN470.c" path="../../../../src/mac/region/RegionCN470.c" type="1"/>
-    <File name="mac/Region/RegionIN865.c" path="../../../../src/mac/region/RegionIN865.c" type="1"/>
+    <File name="mac/Region/RegionKR920.c" path="../../../../src/mac/region/RegionKR920.c" type="1"/>
     <File name="boards/NucleoL152/STM32L1xx_HAL_Driver/stm32l1xx_hal_flash.c" path="../../../../src/boards/mcu/stm32/STM32L1xx_HAL_Driver/Src/stm32l1xx_hal_flash.c" type="1"/>
-    <File name="system/gpio.c" path="../../../../src/system/gpio.c" type="1"/>
+    <File name="mac/Region/RegionIN865.c" path="../../../../src/mac/region/RegionIN865.c" type="1"/>
     <File name="system/adc.c" path="../../../../src/system/adc.c" type="1"/>
-    <File name="mac/Region/RegionEU433.c" path="../../../../src/mac/region/RegionEU433.c" type="1"/>
+    <File name="system/gpio.c" path="../../../../src/system/gpio.c" type="1"/>
     <File name="boards/NucleoL152/STM32L1xx_HAL_Driver/stm32l1xx_hal_rcc_ex.c" path="../../../../src/boards/mcu/stm32/STM32L1xx_HAL_Driver/Src/stm32l1xx_hal_rcc_ex.c" type="1"/>
+    <File name="mac/Region/RegionEU433.c" path="../../../../src/mac/region/RegionEU433.c" type="1"/>
     <File name="mac/Region/RegionUS915-Hybrid.c" path="../../../../src/mac/region/RegionUS915-Hybrid.c" type="1"/>
-    <File name="mac/Region/RegionEU868.c" path="../../../../src/mac/region/RegionEU868.c" type="1"/>
     <File name="mac/Region/RegionCN779.c" path="../../../../src/mac/region/RegionCN779.c" type="1"/>
+    <File name="mac/Region/RegionEU868.c" path="../../../../src/mac/region/RegionEU868.c" type="1"/>
     <File name="peripherals" path="" type="2"/>
-    <File name="boards/NucleoL152/uart-board.c" path="../../../../src/boards/NucleoL152/uart-board.c" type="1"/>
     <File name="boards/NucleoL152/STM32L1xx_HAL_Driver/stm32l1xx_hal_spi.c" path="../../../../src/boards/mcu/stm32/STM32L1xx_HAL_Driver/Src/stm32l1xx_hal_spi.c" type="1"/>
-    <File name="system/i2c.c" path="../../../../src/system/i2c.c" type="1"/>
+    <File name="boards/NucleoL152/uart-board.c" path="../../../../src/boards/NucleoL152/uart-board.c" type="1"/>
     <File name="system/crypto" path="" type="2"/>
-    <File name="mac/Region/Region.h" path="../../../../src/mac/region/Region.h" type="1"/>
     <File name="mac/Region/RegionAS923.h" path="../../../../src/mac/region/RegionAS923.h" type="1"/>
+    <File name="mac/Region/Region.h" path="../../../../src/mac/region/Region.h" type="1"/>
   </Files>
   <Bookmarks/>
 </Project>

@@ -25,9 +25,6 @@ Maintainer: Miguel Luis and Gregory Cristian
  * LED GPIO pins objects
  */
 Gpio_t Led1;
-Gpio_t Led2;
-Gpio_t Led3;
-Gpio_t Led4;
 
 Gpio_t UsbDetect;
 
@@ -111,29 +108,11 @@ void BoardInitPeriph( void )
     Gpio_t ioPin;
 
     // Init the GPIO pins
-    GpioInit( &ioPin, DC_DC_EN, PIN_OUTPUT, PIN_PUSH_PULL, PIN_NO_PULL, 1 );
-    GpioInit( &ioPin, IRQ_MPL3115, PIN_INPUT, PIN_PUSH_PULL, PIN_NO_PULL, 1 );
-    GpioInit( &ioPin, IRQ_MAG3110, PIN_INPUT, PIN_PUSH_PULL, PIN_NO_PULL, 1 );
-    GpioInit( &ioPin, GPS_POWER_ON, PIN_OUTPUT, PIN_PUSH_PULL, PIN_NO_PULL, 1 );
     GpioInit( &ioPin, RADIO_PUSH_BUTTON, PIN_INPUT, PIN_PUSH_PULL, PIN_NO_PULL, 1 );
-    GpioInit( &ioPin, BOARD_POWER_DOWN, PIN_INPUT, PIN_PUSH_PULL, PIN_NO_PULL, 1 );
-    GpioInit( &ioPin, SPARE_IO_EXT_5, PIN_INPUT, PIN_PUSH_PULL, PIN_NO_PULL, 1 );
-    GpioInit( &ioPin, SPARE_IO_EXT_6, PIN_INPUT, PIN_PUSH_PULL, PIN_NO_PULL, 1 );
-    GpioInit( &ioPin, SPARE_IO_EXT_7, PIN_INPUT, PIN_PUSH_PULL, PIN_NO_PULL, 1 );
-    GpioInit( &ioPin, N_IRQ_SX9500, PIN_INPUT, PIN_PUSH_PULL, PIN_NO_PULL, 1 );
-    GpioInit( &ioPin, IRQ_1_MMA8451, PIN_INPUT, PIN_PUSH_PULL, PIN_NO_PULL, 1 );
-    GpioInit( &ioPin, IRQ_2_MMA8451, PIN_INPUT, PIN_PUSH_PULL, PIN_NO_PULL, 1 );
-    GpioInit( &ioPin, TX_EN_SX9500, PIN_OUTPUT, PIN_PUSH_PULL, PIN_NO_PULL, 1 );
     GpioInit( &Led1, LED_1, PIN_OUTPUT, PIN_PUSH_PULL, PIN_NO_PULL, 0 );
-    GpioInit( &Led2, LED_2, PIN_OUTPUT, PIN_PUSH_PULL, PIN_NO_PULL, 0 );
-    GpioInit( &Led3, LED_3, PIN_OUTPUT, PIN_PUSH_PULL, PIN_NO_PULL, 0 );
-    GpioInit( &Led4, LED_4, PIN_OUTPUT, PIN_PUSH_PULL, PIN_NO_PULL, 0 );
 
-    // Switch LED 1, 2, 3, 4 OFF
-    GpioWrite( &Led1, 1 );
-    GpioWrite( &Led2, 1 );
-    GpioWrite( &Led3, 1 );
-    GpioWrite( &Led4, 1 );
+    // Switch LED 1
+    GpioWrite( &Led1, 0 );
 }
 
 void BoardInitMcu( void )
@@ -158,17 +137,11 @@ void BoardInitMcu( void )
         RtcInit( );
 
         BoardUnusedIoInit( );
-
-        I2cInit( &I2c, I2C_SCL, I2C_SDA );
-
-        GpioInit( &UsbDetect, USB_ON, PIN_INPUT, PIN_PUSH_PULL, PIN_NO_PULL, 0 );
     }
     else
     {
         SystemClockReConfig( );
     }
-
-    AdcInit( &Adc, BAT_LEVEL_PIN );
 
     SpiInit( &SX1276.Spi, RADIO_MOSI, RADIO_MISO, RADIO_SCLK, NC );
     SX1276IoInit( );
@@ -197,8 +170,6 @@ void BoardDeInitMcu( void )
 
     GpioInit( &ioPin, OSC_LSE_IN, PIN_INPUT, PIN_PUSH_PULL, PIN_NO_PULL, 0 );
     GpioInit( &ioPin, OSC_LSE_OUT, PIN_INPUT, PIN_PUSH_PULL, PIN_NO_PULL, 0 );
-
-    GpioInit( &UsbDetect, USB_ON, PIN_ANALOGIC, PIN_PUSH_PULL, PIN_NO_PULL, 0 );
 }
 
 uint32_t BoardGetRandomSeed( void )
@@ -246,10 +217,10 @@ uint16_t BoardBatteryMeasureVolage( void )
 {
     uint16_t vdd = 0;
     uint16_t vref = VREFINT_CAL;
-    uint16_t vdiv = 0;
+    uint16_t vdiv = 1;
     uint16_t batteryVoltage = 0;
 
-    vdiv = AdcReadChannel( &Adc, BAT_LEVEL_CHANNEL );
+    //vdiv = AdcReadChannel( &Adc, BAT_LEVEL_CHANNEL );
     //vref = AdcReadChannel( &Adc, ADC_CHANNEL_VREFINT );
 
     vdd = ( float )FACTORY_POWER_SUPPLY * ( float )VREFINT_CAL / ( float )vref;
@@ -310,14 +281,6 @@ static void BoardUnusedIoInit( void )
         GpioInit( &ioPin, USB_DP, PIN_ANALOGIC, PIN_PUSH_PULL, PIN_NO_PULL, 0 );
     }
 
-    GpioInit( &ioPin, TEST_POINT1, PIN_ANALOGIC, PIN_PUSH_PULL, PIN_NO_PULL, 0 );
-    GpioInit( &ioPin, TEST_POINT2, PIN_ANALOGIC, PIN_PUSH_PULL, PIN_NO_PULL, 0 );
-    GpioInit( &ioPin, TEST_POINT3, PIN_ANALOGIC, PIN_PUSH_PULL, PIN_NO_PULL, 0 );
-    GpioInit( &ioPin, TEST_POINT4, PIN_ANALOGIC, PIN_PUSH_PULL, PIN_NO_PULL, 0 );
-
-    GpioInit( &ioPin, PIN_NC, PIN_ANALOGIC, PIN_PUSH_PULL, PIN_NO_PULL, 0 );
-    GpioInit( &ioPin, BOOT_1, PIN_ANALOGIC, PIN_OPEN_DRAIN, PIN_NO_PULL, 0 );
-
     GpioInit( &ioPin, RF_RXTX, PIN_ANALOGIC, PIN_PUSH_PULL, PIN_NO_PULL, 0 );
     GpioInit( &ioPin, WKUP1, PIN_ANALOGIC, PIN_PUSH_PULL, PIN_NO_PULL, 0 );
 
@@ -345,13 +308,13 @@ void SystemClockConfig( void )
 
     __HAL_PWR_VOLTAGESCALING_CONFIG( PWR_REGULATOR_VOLTAGE_SCALE1 );
 
-    RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSE | RCC_OSCILLATORTYPE_LSE;
-    RCC_OscInitStruct.HSEState = RCC_HSE_ON;
+    RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI | RCC_OSCILLATORTYPE_LSE;
+    RCC_OscInitStruct.HSEState = RCC_HSI_ON;
     RCC_OscInitStruct.LSEState = RCC_LSE_ON;
     RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
     RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSE;
-    RCC_OscInitStruct.PLL.PLLMUL = RCC_PLL_MUL8;
-    RCC_OscInitStruct.PLL.PLLDIV = RCC_PLL_DIV3;
+    RCC_OscInitStruct.PLL.PLLMUL = RCC_PLL_MUL3;
+    RCC_OscInitStruct.PLL.PLLDIV = RCC_PLL_DIV2;
     if( HAL_RCC_OscConfig( &RCC_OscInitStruct ) != HAL_OK )
     {
         assert_param( FAIL );

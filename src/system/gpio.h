@@ -28,7 +28,9 @@ Maintainer: Miguel Luis and Gregory Cristian
 typedef enum
 {
     MCU_PINS,
+#ifdef IOE_PINS
     IOE_PINS,
+#endif
 
     // Not connected
     NC = (int)0xFFFFFFFF
