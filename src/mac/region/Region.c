@@ -128,6 +128,54 @@ Maintainer: Miguel Luis ( Semtech ), Gregory Cristian ( Semtech ) and Daniel Jae
 #define AU915_SET_CONTINUOUS_WAVE( )
 #endif
 
+#ifdef REGION_Actility
+#include "RegionActility.h"
+#define Actility_CASE                       case LORAMAC_REGION_Actility:
+#define Actility_IS_ACTIVE( )               Actility_CASE { return true; }
+#define Actility_GET_PHY_PARAM( )           Actility_CASE { RegionActilityGetPhyParam( getPhy ); break; }
+#define Actility_SET_BAND_TX_DONE( )        Actility_CASE { RegionActilitySetBandTxDone( txDone ); break; }
+#define Actility_INIT_DEFAULTS( )           Actility_CASE { RegionActilityInitDefaults( type ); break; }
+#define Actility_VERIFY( )                  Actility_CASE { return RegionActilityVerify( verify, phyAttribute ); }
+#define Actility_APPLY_CF_LIST( )           Actility_CASE { RegionActilityApplyCFList( applyCFList ); break; }
+#define Actility_CHAN_MASK_SET( )           Actility_CASE { return RegionActilityChanMaskSet( chanMaskSet ); }
+#define Actility_ADR_NEXT( )                Actility_CASE { return RegionActilityAdrNext( adrNext, drOut, txPowOut, adrAckCounter ); }
+#define Actility_RX_CONFIG( )               Actility_CASE { return RegionActilityRxConfig( rxConfig, datarate ); }
+#define Actility_TX_CONFIG( )               Actility_CASE { return RegionActilityTxConfig( txConfig, txPower, txTimeOnAir ); }
+#define Actility_LINK_ADR_REQ( )            Actility_CASE { return RegionActilityLinkAdrReq( linkAdrReq, drOut, txPowOut, nbRepOut, nbBytesParsed ); }
+#define Actility_RX_PARAM_SETUP_REQ( )      Actility_CASE { return RegionActilityRxParamSetupReq( rxParamSetupReq ); }
+#define Actility_NEW_CHANNEL_REQ( )         Actility_CASE { return RegionActilityNewChannelReq( newChannelReq ); }
+#define Actility_TX_PARAM_SETUP_REQ( )      Actility_CASE { return RegionActilityTxParamSetupReq( txParamSetupReq ); }
+#define Actility_DL_CHANNEL_REQ( )          Actility_CASE { return RegionActilityDlChannelReq( dlChannelReq ); }
+#define Actility_ALTERNATE_DR( )            Actility_CASE { return RegionActilityAlternateDr( alternateDr ); }
+#define Actility_CALC_BACKOFF( )            Actility_CASE { RegionActilityCalcBackOff( calcBackOff ); break; }
+#define Actility_NEXT_CHANNEL( )            Actility_CASE { return RegionActilityNextChannel( nextChanParams, channel, time ); }
+#define Actility_CHANNEL_ADD( )             Actility_CASE { return RegionActilityChannelAdd( channelAdd ); }
+#define Actility_CHANNEL_REMOVE( )          Actility_CASE { return RegionActilityChannelsRemove( channelRemove ); }
+#define Actility_SET_CONTINUOUS_WAVE( )     Actility_CASE { RegionActilitySetContinuousWave( continuousWave ); break; }
+#else
+#define Actility_IS_ACTIVE( )
+#define Actility_GET_PHY_PARAM( )
+#define Actility_SET_BAND_TX_DONE( )
+#define Actility_INIT_DEFAULTS( )
+#define Actility_VERIFY( )
+#define Actility_APPLY_CF_LIST( )
+#define Actility_CHAN_MASK_SET( )
+#define Actility_ADR_NEXT( )
+#define Actility_RX_CONFIG( )
+#define Actility_TX_CONFIG( )
+#define Actility_LINK_ADR_REQ( )
+#define Actility_RX_PARAM_SETUP_REQ( )
+#define Actility_NEW_CHANNEL_REQ( )
+#define Actility_TX_PARAM_SETUP_REQ( )
+#define Actility_DL_CHANNEL_REQ( )
+#define Actility_ALTERNATE_DR( )
+#define Actility_CALC_BACKOFF( )
+#define Actility_NEXT_CHANNEL( )
+#define Actility_CHANNEL_ADD( )
+#define Actility_CHANNEL_REMOVE( )
+#define Actility_SET_CONTINUOUS_WAVE( )
+#endif
+
 #ifdef REGION_CN470
 #include "RegionCN470.h"
 #define CN470_CASE                       case LORAMAC_REGION_CN470:
@@ -518,7 +566,8 @@ bool RegionIsActive( LoRaMacRegion_t region )
     {
         AS923_IS_ACTIVE( );
         AU915_IS_ACTIVE( );
-        CN470_IS_ACTIVE( );
+	    Actility_IS_ACTIVE();
+	    CN470_IS_ACTIVE( );
         CN779_IS_ACTIVE( );
         EU433_IS_ACTIVE( );
         EU868_IS_ACTIVE( );
@@ -539,7 +588,8 @@ void RegionGetPhyParam( LoRaMacRegion_t region, GetPhyParams_t* getPhy )
     {
         AS923_GET_PHY_PARAM( );
         AU915_GET_PHY_PARAM( );
-        CN470_GET_PHY_PARAM( );
+	    Actility_GET_PHY_PARAM();
+	    CN470_GET_PHY_PARAM( );
         CN779_GET_PHY_PARAM( );
         EU433_GET_PHY_PARAM( );
         EU868_GET_PHY_PARAM( );
@@ -560,7 +610,8 @@ void RegionSetBandTxDone( LoRaMacRegion_t region, SetBandTxDoneParams_t* txDone 
     {
         AS923_SET_BAND_TX_DONE( );
         AU915_SET_BAND_TX_DONE( );
-        CN470_SET_BAND_TX_DONE( );
+	    Actility_SET_BAND_TX_DONE();
+	    CN470_SET_BAND_TX_DONE( );
         CN779_SET_BAND_TX_DONE( );
         EU433_SET_BAND_TX_DONE( );
         EU868_SET_BAND_TX_DONE( );
@@ -581,7 +632,8 @@ void RegionInitDefaults( LoRaMacRegion_t region, InitType_t type )
     {
         AS923_INIT_DEFAULTS( );
         AU915_INIT_DEFAULTS( );
-        CN470_INIT_DEFAULTS( );
+	    Actility_INIT_DEFAULTS();
+	    CN470_INIT_DEFAULTS( );
         CN779_INIT_DEFAULTS( );
         EU433_INIT_DEFAULTS( );
         EU868_INIT_DEFAULTS( );
@@ -602,7 +654,8 @@ bool RegionVerify( LoRaMacRegion_t region, VerifyParams_t* verify, PhyAttribute_
     {
         AS923_VERIFY( );
         AU915_VERIFY( );
-        CN470_VERIFY( );
+	    Actility_VERIFY();
+	    CN470_VERIFY( );
         CN779_VERIFY( );
         EU433_VERIFY( );
         EU868_VERIFY( );
@@ -623,7 +676,8 @@ void RegionApplyCFList( LoRaMacRegion_t region, ApplyCFListParams_t* applyCFList
     {
         AS923_APPLY_CF_LIST( );
         AU915_APPLY_CF_LIST( );
-        CN470_APPLY_CF_LIST( );
+	    Actility_APPLY_CF_LIST();
+	    CN470_APPLY_CF_LIST( );
         CN779_APPLY_CF_LIST( );
         EU433_APPLY_CF_LIST( );
         EU868_APPLY_CF_LIST( );
@@ -644,7 +698,8 @@ bool RegionChanMaskSet( LoRaMacRegion_t region, ChanMaskSetParams_t* chanMaskSet
     {
         AS923_CHAN_MASK_SET( );
         AU915_CHAN_MASK_SET( );
-        CN470_CHAN_MASK_SET( );
+	    Actility_CHAN_MASK_SET();
+	    CN470_CHAN_MASK_SET( );
         CN779_CHAN_MASK_SET( );
         EU433_CHAN_MASK_SET( );
         EU868_CHAN_MASK_SET( );
@@ -665,7 +720,8 @@ bool RegionAdrNext( LoRaMacRegion_t region, AdrNextParams_t* adrNext, int8_t* dr
     {
         AS923_ADR_NEXT( );
         AU915_ADR_NEXT( );
-        CN470_ADR_NEXT( );
+	    Actility_ADR_NEXT();
+	    CN470_ADR_NEXT( );
         CN779_ADR_NEXT( );
         EU433_ADR_NEXT( );
         EU868_ADR_NEXT( );
@@ -686,7 +742,8 @@ bool RegionRxConfig( LoRaMacRegion_t region, RxConfigParams_t* rxConfig, int8_t*
     {
         AS923_RX_CONFIG( );
         AU915_RX_CONFIG( );
-        CN470_RX_CONFIG( );
+	    Actility_RX_CONFIG();
+	    CN470_RX_CONFIG( );
         CN779_RX_CONFIG( );
         EU433_RX_CONFIG( );
         EU868_RX_CONFIG( );
@@ -707,7 +764,8 @@ bool RegionTxConfig( LoRaMacRegion_t region, TxConfigParams_t* txConfig, int8_t*
     {
         AS923_TX_CONFIG( );
         AU915_TX_CONFIG( );
-        CN470_TX_CONFIG( );
+	    Actility_TX_CONFIG();
+	    CN470_TX_CONFIG( );
         CN779_TX_CONFIG( );
         EU433_TX_CONFIG( );
         EU868_TX_CONFIG( );
@@ -728,7 +786,8 @@ uint8_t RegionLinkAdrReq( LoRaMacRegion_t region, LinkAdrReqParams_t* linkAdrReq
     {
         AS923_LINK_ADR_REQ( );
         AU915_LINK_ADR_REQ( );
-        CN470_LINK_ADR_REQ( );
+	    Actility_LINK_ADR_REQ();
+	    CN470_LINK_ADR_REQ( );
         CN779_LINK_ADR_REQ( );
         EU433_LINK_ADR_REQ( );
         EU868_LINK_ADR_REQ( );
@@ -749,7 +808,8 @@ uint8_t RegionRxParamSetupReq( LoRaMacRegion_t region, RxParamSetupReqParams_t* 
     {
         AS923_RX_PARAM_SETUP_REQ( );
         AU915_RX_PARAM_SETUP_REQ( );
-        CN470_RX_PARAM_SETUP_REQ( );
+	    Actility_RX_PARAM_SETUP_REQ();
+	    CN470_RX_PARAM_SETUP_REQ( );
         CN779_RX_PARAM_SETUP_REQ( );
         EU433_RX_PARAM_SETUP_REQ( );
         EU868_RX_PARAM_SETUP_REQ( );
@@ -770,7 +830,8 @@ uint8_t RegionNewChannelReq( LoRaMacRegion_t region, NewChannelReqParams_t* newC
     {
         AS923_NEW_CHANNEL_REQ( );
         AU915_NEW_CHANNEL_REQ( );
-        CN470_NEW_CHANNEL_REQ( );
+	    Actility_NEW_CHANNEL_REQ();
+	    CN470_NEW_CHANNEL_REQ( );
         CN779_NEW_CHANNEL_REQ( );
         EU433_NEW_CHANNEL_REQ( );
         EU868_NEW_CHANNEL_REQ( );
@@ -791,7 +852,8 @@ int8_t RegionTxParamSetupReq( LoRaMacRegion_t region, TxParamSetupReqParams_t* t
     {
         AS923_TX_PARAM_SETUP_REQ( );
         AU915_TX_PARAM_SETUP_REQ( );
-        CN470_TX_PARAM_SETUP_REQ( );
+	    Actility_TX_PARAM_SETUP_REQ();
+	    CN470_TX_PARAM_SETUP_REQ( );
         CN779_TX_PARAM_SETUP_REQ( );
         EU433_TX_PARAM_SETUP_REQ( );
         EU868_TX_PARAM_SETUP_REQ( );
@@ -812,7 +874,8 @@ uint8_t RegionDlChannelReq( LoRaMacRegion_t region, DlChannelReqParams_t* dlChan
     {
         AS923_DL_CHANNEL_REQ( );
         AU915_DL_CHANNEL_REQ( );
-        CN470_DL_CHANNEL_REQ( );
+	    Actility_DL_CHANNEL_REQ();
+	    CN470_DL_CHANNEL_REQ( );
         CN779_DL_CHANNEL_REQ( );
         EU433_DL_CHANNEL_REQ( );
         EU868_DL_CHANNEL_REQ( );
@@ -833,7 +896,8 @@ int8_t RegionAlternateDr( LoRaMacRegion_t region, AlternateDrParams_t* alternate
     {
         AS923_ALTERNATE_DR( );
         AU915_ALTERNATE_DR( );
-        CN470_ALTERNATE_DR( );
+	    Actility_ALTERNATE_DR();
+	    CN470_ALTERNATE_DR( );
         CN779_ALTERNATE_DR( );
         EU433_ALTERNATE_DR( );
         EU868_ALTERNATE_DR( );
@@ -854,7 +918,8 @@ void RegionCalcBackOff( LoRaMacRegion_t region, CalcBackOffParams_t* calcBackOff
     {
         AS923_CALC_BACKOFF( );
         AU915_CALC_BACKOFF( );
-        CN470_CALC_BACKOFF( );
+	    Actility_CALC_BACKOFF();
+	    CN470_CALC_BACKOFF( );
         CN779_CALC_BACKOFF( );
         EU433_CALC_BACKOFF( );
         EU868_CALC_BACKOFF( );
@@ -875,7 +940,8 @@ bool RegionNextChannel( LoRaMacRegion_t region, NextChanParams_t* nextChanParams
     {
         AS923_NEXT_CHANNEL( );
         AU915_NEXT_CHANNEL( );
-        CN470_NEXT_CHANNEL( );
+	    Actility_NEXT_CHANNEL();
+	    CN470_NEXT_CHANNEL( );
         CN779_NEXT_CHANNEL( );
         EU433_NEXT_CHANNEL( );
         EU868_NEXT_CHANNEL( );
@@ -896,7 +962,8 @@ LoRaMacStatus_t RegionChannelAdd( LoRaMacRegion_t region, ChannelAddParams_t* ch
     {
         AS923_CHANNEL_ADD( );
         AU915_CHANNEL_ADD( );
-        CN470_CHANNEL_ADD( );
+	    Actility_CHANNEL_ADD();
+	    CN470_CHANNEL_ADD( );
         CN779_CHANNEL_ADD( );
         EU433_CHANNEL_ADD( );
         EU868_CHANNEL_ADD( );
@@ -917,7 +984,8 @@ bool RegionChannelsRemove( LoRaMacRegion_t region, ChannelRemoveParams_t* channe
     {
         AS923_CHANNEL_REMOVE( );
         AU915_CHANNEL_REMOVE( );
-        CN470_CHANNEL_REMOVE( );
+	    Actility_CHANNEL_REMOVE();
+	    CN470_CHANNEL_REMOVE( );
         CN779_CHANNEL_REMOVE( );
         EU433_CHANNEL_REMOVE( );
         EU868_CHANNEL_REMOVE( );
@@ -938,7 +1006,8 @@ void RegionSetContinuousWave( LoRaMacRegion_t region, ContinuousWaveParams_t* co
     {
         AS923_SET_CONTINUOUS_WAVE( );
         AU915_SET_CONTINUOUS_WAVE( );
-        CN470_SET_CONTINUOUS_WAVE( );
+	    Actility_SET_CONTINUOUS_WAVE();
+	    CN470_SET_CONTINUOUS_WAVE( );
         CN779_SET_CONTINUOUS_WAVE( );
         EU433_SET_CONTINUOUS_WAVE( );
         EU868_SET_CONTINUOUS_WAVE( );

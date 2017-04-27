@@ -1532,6 +1532,10 @@ typedef enum eLoRaMacRegion_t
      */
     LORAMAC_REGION_AU915,
     /*!
+     * Australian Actility band on 915MHz
+     */
+    LORAMAC_REGION_Actility,
+    /*!
      * Chinese band on 470MHz
      */
     LORAMAC_REGION_CN470,
