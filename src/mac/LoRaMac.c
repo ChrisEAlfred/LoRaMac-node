@@ -385,13 +385,6 @@ static uint8_t RxSlot = 0;
  */
 LoRaMacFlags_t LoRaMacFlags;
 
-#if USE_MULTICAST
-/*!
- * Multicast flag
- */
-static uint32_t IsMulticast = 0;
-#endif
-
 /*!
  * \brief Function to be executed on Radio Tx Done event
  */
@@ -782,25 +775,6 @@ static void OnRadioRxDone( uint8_t *payload, uint16_t size, int16_t rssi, int8_t
                 address |= ( (uint32_t)payload[pktHeaderLen++] << 16 );
                 address |= ( (uint32_t)payload[pktHeaderLen++] << 24 );
 
-#if USE_MULTICAST
-                if (address == LoRaMacDevAddr)
-                {
-                	// Unicast
-                    IsMulticast = 0;
-                }
-                else if (address == 1)
-                {
-                	// Multicast
-                    IsMulticast = 1;
-                }
-                else
-                {
-                    // We are not the destination of this frame.
-                    McpsIndication.Status = LORAMAC_EVENT_INFO_STATUS_ADDRESS_FAIL;
-                    PrepareRxDoneAbort();
-                    return;
-                }
-#else
                 if( address != LoRaMacDevAddr )
                 {
                     curMulticastParams = MulticastChannels;
@@ -825,7 +799,6 @@ static void OnRadioRxDone( uint8_t *payload, uint16_t size, int16_t rssi, int8_t
                     }
                 }
                 else
-#endif
                 {
                     multicast = 0;
                     nwkSKey = LoRaMacNwkSKey;
@@ -837,14 +810,6 @@ static void OnRadioRxDone( uint8_t *payload, uint16_t size, int16_t rssi, int8_t
 
                 sequenceCounter = ( uint16_t )payload[pktHeaderLen++];
                 sequenceCounter |= ( uint16_t )payload[pktHeaderLen++] << 8;
-
-#if USE_MULTICAST
-                if (IsMulticast != 0)
-                {
-                	// Dummy our downlink counter to match multicast
-                    downLinkCounter = sequenceCounter;
-                }
-#endif
 
                 appPayloadStartIndex = 8 + fCtrl.Bits.FOptsLen;
 
@@ -945,14 +910,7 @@ static void OnRadioRxDone( uint8_t *payload, uint16_t size, int16_t rssi, int8_t
                                 return;
                             }
                         }
-#if USE_MULTICAST
-                        if (IsMulticast == 0)
-                        {
-#endif
                         DownLinkCounter = downLinkCounter;
-#if USE_MULTICAST
-                        }
-#endif
                     }
 
                     if( ( ( size - 4 ) - appPayloadStartIndex ) > 0 )
