@@ -38,7 +38,6 @@
  *              The following regions are supported:
  *              - #define REGION_AS923
  *              - #define REGION_AU915
- *              - #define REGION_Actility
  *              - #define REGION_CN470
  *              - #define REGION_CN779
  *              - #define REGION_EU433
